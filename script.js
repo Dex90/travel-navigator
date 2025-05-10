@@ -5,6 +5,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
+loadDiary();
+
 function searchCity() {
     const city = document.getElementById("cityInput").value;
     fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${city}`)
@@ -13,16 +15,16 @@ function searchCity() {
         if (data.length > 0) {
             const lat = data[0].lat;
             const lon = data[0].lon;
-            map.setView([lat, lon], 13);
+            map.setView([lat, lon], 14);
             loadPOI(lat, lon);
         }
     });
 }
 
 function loadPOI(lat, lon) {
-    const radius = 1000;
-    const apiKey = '5ae2e3f221c38a28845f05b6'; // demo key
-    fetch(`https://api.opentripmap.com/0.1/en/places/radius?radius=${radius}&lon=${lon}&lat=${lat}&format=json&apikey=${apiKey}`)
+    const radius = 3000;
+    const apiKey = '5ae2e3f221c38a28845f05b6';
+    fetch(`https://api.opentripmap.com/0.1/en/places/radius?radius=${radius}&lon=${lon}&lat=${lat}&format=json&apikey=${apiKey}&kinds=monuments,architecture,interesting_places`)
     .then(res => res.json())
     .then(data => {
         data.forEach(poi => {
@@ -39,5 +41,23 @@ function addToDiary(name) {
         const li = document.createElement("li");
         li.textContent = name;
         list.appendChild(li);
+        saveDiary();
+    }
+}
+
+function saveDiary() {
+    const items = [...document.getElementById("visitedList").children].map(li => li.textContent);
+    localStorage.setItem("diario", JSON.stringify(items));
+}
+
+function loadDiary() {
+    const stored = localStorage.getItem("diario");
+    if (stored) {
+        const list = document.getElementById("visitedList");
+        JSON.parse(stored).forEach(name => {
+            const li = document.createElement("li");
+            li.textContent = name;
+            list.appendChild(li);
+        });
     }
 }
