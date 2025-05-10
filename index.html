@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Navigator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="topbar">
+        <input type="text" id="cityInput" placeholder="Scrivi una città es. Roma">
+        <button onclick="searchCity()">Cerca</button>
+    </div>
+    <div id="map"></div>
+    <div id="diario"><h3>Diario di Viaggio</h3><ul id="visitedList"></ul></div>
+    <script src="script.js"></script>
+</body>
+</html>

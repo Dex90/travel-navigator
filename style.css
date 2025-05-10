@@ -1,0 +1,25 @@
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial;
+}
+#map {
+    height: 90%;
+    width: 100%;
+}
+.topbar {
+    height: 10%;
+    padding: 5px;
+    background: #f0f0f0;
+}
+#diario {
+    position: absolute;
+    top: 10%;
+    right: 10px;
+    background: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    max-height: 60%;
+    overflow-y: auto;
+}
